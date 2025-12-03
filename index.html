@@ -4,42 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Life Dashboard</title>
-    
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/dashboard.css">
-<link rel="stylesheet" href="css/todo.css">
-<link rel="stylesheet" href="css/notes.css">
-<link rel="stylesheet" href="css/focus.css">
-<link rel="stylesheet" href="css/tools.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/todo.css">
+    <link rel="stylesheet" href="css/notes.css">
+    <link rel="stylesheet" href="css/focus.css">
+    <link rel="stylesheet" href="css/tools.css">
 </head>
-    <body>
+<body>
 
-  <!-- Navigation -->
-  <nav id="sidebar">
-    <button data-section="dashboardSection">Dashboard</button>
-    <button data-section="todoSection">To-Do List</button>
-    <button data-section="notesSection">Notes</button>
-    <button data-section="focusSection">Focus Mode</button>
-    <button data-section="toolsSection">Quick Tools</button>
-  </nav>
+<section id="dashboardSection" class="module-section">
+    <!-- Dashboard header -->
+    <header class="app-header">
+        <button id="menuBtn" class="menu-toggle">
+  <img src="assets/images/menu.png" alt="Menu" width="24" height="24">
+</button>
 
-  <!-- Main Content Area -->
-  <main id="content">
-    <section id="dashboardSection"></section>
-    <section id="todoSection"></section>
-    <section id="notesSection"></section>
-    <section id="focusSection"></section>
-    <section id="toolsSection"></section>
-  </main>
 
-  <!-- JS Files -->
-  <script src="js/app.js"></script>
-  <script src="js/dashboard.js"></script>
-  <script src="js/todo.js"></script>
-  <script src="js/notes.js"></script>
-  <script src="js/focus.js"></script>
-  <script src="js/tools.js"></script>
+
+        <div class="header-right">
+    <div id="weather" class="weather">—°C</div>
+</div>
+
+<div id="weatherDetails"></div>
+
+    </header>
+
+<nav id="sideMenu" aria-hidden="true">
+  <ul>
+    <li><button data-module="dashboard">Dashboard</button></li>
+    <li><button data-module="todo">To-Do</button></li>
+    <li><button data-module="notes">Notes</button></li>
+    <li><button data-module="focus">Focus</button></li>
+    <li><button data-module="tools">Tools</button></li>
+  </ul>
+</nav>
+
+    <!-- Dashboard main -->
+    <div class="center-bar">
+        <div id="clock" class="clock">00:00:00</div>
+        <div id="greeting" class="greeting">Welcome back!</div>
+    </div>
+
+    <!-- Dashboard footer -->
+    <footer class="app-footer">
+        <div class="footer-left">
+            <button id="bgBtn" class="btn"><img src="assets/images/gallery.png"></button>
+        </div>
+        <div class="footer-center">
+            <div id="quote" class="quote">"A random quote will appear here."</div>
+        </div>
+        <div class="footer-right">
+            <button id="notesBtn" class="btn"><img src="assets/images/notes.png"></button>
+        </div>
+    </footer>
+
+   <!-- Background chooser modal -->
+<div id="bgModal" class="modal hidden">
+  <div class="modal-inner">
+    <h3>Select Background</h3>
+    <div class="bg-grid">
+      <img src="assets/images/bg8.jpg" alt="bg8">
+      <img src="assets/images/bg9.jpg" alt="bg9">
+      <img src="assets/images/bg15.jpg" alt="bg15">
+      <img src="assets/images/bg11.jpg" alt="bg11">
+      <img src="assets/images/bg12.jpg" alt="bg12">
+      <img src="assets/images/bg14.jpg" alt="bg14">
+    </div>
+    <div class="bg-buttons">
+      <button id="bgReset" class="btn">Reset</button>
+      <button id="bgClose" class="btn">Close</button>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Sticky notes panel -->
+     
+    <div id="notesPanel" class="notes-panel hidden">
+  <div class="notes-header">
+    <h4>Sticky Notes</h4>
+    <button id="notesClose" class="btn">✕</button>
+  </div>
+  <div class="notes-controls">
+    <input id="noteText" placeholder="Type a note...">
+    <button id="addNoteBtn" class="btn">Add Note</button>
+  </div>
+  <ul id="notesList" class="notes-list"></ul>
+</div>
+
+</section>
+<!--todo list-->
+<section id="todoSection" class="module-section">
+    <header class="app-header">
+        <h2>To-Do Module</h2>
+    </header>
+    <div class="center-bar">
+        <p>Here is your To-Do list...</p>
+    </div>
+    <footer class="app-footer">
+        <p>Footer / Controls for To-Do</p>
+    </footer>
+</section>
+  
+<section id="notesSection" class="module-section">Notes Content</section>
+
+<section id="focusSection" class="module-section">Focus Content</section>
+<section id="toolsSection" class="module-section">Tools Content</section>
+
+<!-- JS FILES -->
+<script src="js/app.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/todo.js"></script>
+<script src="js/notes.js"></script>
+<script src="js/focus.js"></script>
+<script src="js/tools.js"></script>
 
 </body>
 </html>
