@@ -1,0 +1,527 @@
+/* ===== Dashboard Module Styles ===== */
+
+/* Root colors */
+:root {
+  --bg: #17191e;        /* main background */
+  --card: #12161c;      /* card/panel background */
+  --accent: #06b6d4;    /* main accent */
+  --muted: #95a1b3;     /* muted text */
+  --glass: rgba(255, 255, 255, 0.03); /* glass effect */
+}
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: transparent; /* allow dashboard image to show */
+}
+
+
+.module-section {
+    display: none;
+}
+
+#dashboardSection {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* full height */
+  width: 100%;       /* full width */
+  background: url("../assets/images/bg16.jpg") no-repeat center center / cover;
+  color: #e6eef6;
+}
+
+.center-bar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 30px;
+}
+
+/* Header */
+#dashboardSection .app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  height: 60px;
+  background: transparent; 
+  border: none;             
+}
+
+#dashboardSection .app-header .btn {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Center Bar (clock + greeting) */
+#dashboardSection .center-bar {
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 30px;
+}
+
+
+#dashboardSection .clock {
+    font-size: 150px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 520; 
+    letter-spacing: 1px;
+    color: #e6eef6; 
+}
+
+
+#dashboardSection .greeting {
+  margin-top: 5px;
+  font-size: 2.5rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 130; 
+  color: #e6eef6; 
+}
+
+#dashboardSection .app-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  height: 80px;
+  background: transparent;  
+  border: none;             
+}
+
+#dashboardSection .footer-left,
+#dashboardSection .footer-center,
+#dashboardSection .footer-right {
+  display: flex;
+  align-items: center;
+}
+
+#dashboardSection .footer-center {
+  justify-content: center;
+  flex: 1;
+  text-align: center;
+}
+
+
+#dashboardSection .quote {
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* Buttons */
+#dashboardSection .btn {
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: inherit;
+}
+
+/* Background chooser panel */
+#bgModal {
+    position: fixed;
+    bottom: 100px;  /* same as notes panel */
+    left: 18px;     /* same as notes panel */
+    width: 320px;   /* same size as notes panel */
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px;
+    z-index: 210;
+    box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+    max-height: 400px;
+    overflow-y: auto;
+    font-family: 'Poppins', sans-serif;
+}
+
+#bgModal.hidden {
+    display: none;
+}
+
+#dashboardSection #bgModal h3 {
+    margin: 0 0 12px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+   color: #dfdfdf;
+}
+
+#dashboardSection .bg-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+#dashboardSection .bg-grid img {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 2px solid rgba(255,255,255,0.03);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+#dashboardSection .bg-grid img:hover {
+    transform: scale(1.1);
+    border-color: var(--accent);
+}
+
+/* Buttons below images */
+#dashboardSection .bg-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    gap: 10px;
+}
+
+#dashboardSection .bg-buttons .btn {
+    flex: 1;
+    padding: 6px 0;
+    border-radius: 6px;
+    border: none;
+    background: var(--accent);
+    color: #0f1724;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+#bgModal #bgReset {
+    background-color: var(--muted); /* muted color for Reset */
+    color: var(--card);             /* text contrasting with dashboard card */
+}
+
+#bgModal #bgReset:hover {
+    background-color: rgb(199, 4, 4); /* accent on hover */
+    color: #fff;
+}
+
+#bgModal #bgClose {
+    background-color: #34a0a4; /* match dashboard accent */
+    color: #fff;
+}
+
+#bgModal #bgClose:hover {
+    background-color: var(--accent); /* lighter accent on hover */
+}
+
+
+/* ===== Sticky Notes Panel ===== */
+#dashboardSection .notes-panel {
+    position: fixed;
+    right: 18px;
+    bottom: 100px; 
+    width: 320px;  
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px;
+    z-index: 210;
+    box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+    font-family: 'Poppins', sans-serif;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#dashboardSection .notes-panel.hidden {
+    display: none;
+}
+
+/* Notes Header */
+#dashboardSection .notes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+#dashboardSection .notes-header h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #dfdfdf;
+    margin: 0;
+}
+
+/* Notes Controls */
+#dashboardSection .notes-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+#dashboardSection .notes-controls input {
+    flex: 1;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.03);
+    background: transparent;
+    color: inherit;
+    font-family: 'Poppins', sans-serif;
+}
+
+#dashboardSection .notes-controls button {
+    flex: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    background: #34a0a4;
+    color: #000000;
+    font-weight: 500;
+    transition: background 0.2s ease;
+}
+
+#dashboardSection .notes-controls button:hover {
+    background: #00ac95; /* lighter accent on hover */
+}
+
+
+
+/* Notes List */
+#dashboardSection .notes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 260px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#dashboardSection .notes-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 8px;
+    background: var(--glass);
+    margin-bottom: 8px;
+    font-family: 'Poppins', sans-serif;
+}
+
+#dashboardSection .notes-list li span {
+    flex: 1;
+    word-break: break-word;
+}
+
+/* Delete note button inside list */
+#dashboardSection .notes-list li button {
+    background: transparent;
+    border: none;
+    color: #027d7f;
+    cursor: pointer;
+}
+
+/* Individual Note Items */
+#dashboardSection .note-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 6px;
+    background: var(--glass); /* same glass effect as bg images */
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+#dashboardSection .note-item:hover {
+    transform: scale(1.02);
+}
+
+/* Note Text */
+#dashboardSection .note-text {
+    flex: 1;
+    white-space: pre-wrap;
+    font-family: 'Poppins', sans-serif;
+    color: #e6eef6;
+}
+
+/* Note Action Buttons */
+#dashboardSection .note-actions button {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 4px;
+    transition: color 0.2s ease;
+}
+
+#dashboardSection .note-actions button:hover {
+    color: var(--accent);
+}
+
+
+
+
+.menu-toggle {
+  background: none;
+  border: none;
+}
+
+#menuBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px; /* increase clickable area */
+  border-radius: 6px; /* optional, for nice hover */
+}
+
+#sideMenu {
+  position: absolute;
+  left: 16px;
+  top: 60px;
+  width: 220px;
+  background: #0b1220;
+  padding: 20px;
+  border-radius: 15px;
+  display: none; /* hidden by default */
+  z-index: 1000;
+}
+
+#sideMenu[aria-hidden="false"] {
+  display: block; /* shows instantly */
+}
+
+
+
+
+/* Remove default list styles */
+#sideMenu ul {
+  list-style: none; /* remove bullets */
+  padding: 0;
+  margin: 0;
+}
+
+/* Menu items */
+#sideMenu ul li {
+  margin: 16px 0;
+}
+
+/* Buttons inside sidebar */
+#sideMenu ul li button {
+  width: 100%;
+  text-align: left;
+  color: #e6eef6;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-family:'Poppins' , sans-serif;
+  cursor: pointer;
+  padding: 6px 0;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+/* Hover underline effect */
+#sideMenu ul li button::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: #06b6d4; /* accent color */
+  transition: width 0.3s ease;
+}
+
+#sideMenu ul li button:hover::after {
+  width: 100%;
+}
+
+/* Weather button base */
+#weather {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 350;  /* between 300–400 */
+    font-size: 20px;
+    color: #e6eef6;
+    padding: 6px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(2px);
+}
+
+/* Hover: strong glassy glow */
+#weather:hover {
+    background: rgba(255, 255, 255, 0.075);
+    backdrop-filter: blur(6px);
+}
+
+/* More details panel */
+#weatherDetails {
+    position: absolute;
+    right: 16px;
+    top: 65px;
+    width: 220px;
+    background: rgba(15, 23, 36, 0.75);
+    padding: 14px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    display: none;
+    color: #e6eef6;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+#weatherDetails p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+
+/* ===== Responsive ===== */
+@media (max-width: 800px) {
+  #dashboardSection .clock {
+    font-size: 14vmin;
+  }
+
+  #dashboardSection .notes-panel {
+    width: 90%;
+    left: 5%;
+    right: 5%;
+    bottom: 80px;
+  }
+
+  #dashboardSection .bg-grid img {
+    width: 30%;
+    height: auto;
+  }
+}
+
+@media (max-width: 493px) {
+  #dashboardSection .clock {
+    font-size: 14vmin;
+  }
+
+  #dashboardSection .notes-panel {
+    width: 90%;
+    left: 5%;
+    right: 5%;
+    bottom: 80px;
+  }
+
+  #dashboardSection .bg-grid img {
+    width: 30%;
+    height: auto;
+  }
+  #greeting {
+    text-align: center;
+  }
+
+}
