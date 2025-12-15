@@ -27,6 +27,17 @@ function updateClock() {
     else timeGreeting = "Good Night";
 
     greetingEl.textContent = `${timeGreeting}, ${userName}!`;
+
+    // Image logic: Moon for night (Good Night), Sun for day
+    const sunDiv = document.getElementById('sun-icon');
+    const moonDiv = document.getElementById('moon-icon');
+    if (timeGreeting === "Good Night") {
+        if (sunDiv) sunDiv.style.display = 'none';
+        if (moonDiv) moonDiv.style.display = 'block';
+    } else {
+        if (sunDiv) sunDiv.style.display = 'block';
+        if (moonDiv) moonDiv.style.display = 'none';
+    }
 }
 
 // Update immediately and then every minute
@@ -69,91 +80,73 @@ const noteText = document.getElementById("noteText");
 notesBtn.addEventListener("click", () => notesPanel.classList.toggle("hidden"));
 notesClose.addEventListener("click", () => notesPanel.classList.add("hidden"));
 
-/* --------------------
-   Load saved notes
--------------------- */
 document.addEventListener("DOMContentLoaded", loadNotes);
 
 function loadNotes() {
     let notes = JSON.parse(localStorage.getItem("notes")) || [];
-
-    notes.forEach(note => {
-        addNoteToUI(note.text, note.pinned);
-    });
+    notes.forEach(note => addNoteToUI(note)); // always pass full object
 }
 
-/* --------------------
-   Add new note
--------------------- */
 addNoteBtn.addEventListener("click", () => {
     const text = noteText.value.trim();
     if (!text) return;
 
-    addNoteToUI(text, false);
-    saveNote({ text, pinned: false });
+    const id = Date.now(); // generate once
+    const note = { id, text, pinned: false };
+
+    addNoteToUI(note);
+    saveNote(note);
 
     noteText.value = "";
 });
 
-/* --------------------
-   Save note to localStorage
--------------------- */
 function saveNote(note) {
     let notes = JSON.parse(localStorage.getItem("notes")) || [];
     notes.push(note);
     localStorage.setItem("notes", JSON.stringify(notes));
 }
 
-/* --------------------
-   Delete note from localStorage
--------------------- */
-function deleteNote(text) {
+function deleteNote(id) {
     let notes = JSON.parse(localStorage.getItem("notes")) || [];
-    notes = notes.filter(n => n.text !== text);
+    notes = notes.filter(n => n.id !== id);
     localStorage.setItem("notes", JSON.stringify(notes));
 }
 
-/* --------------------
-   Add note to UI
--------------------- */
-function addNoteToUI(text, pinned) {
+function addNoteToUI(note) {
     const li = document.createElement("li");
     li.className = "note-item";
+    li.dataset.id = note.id;
 
-    li.style.background = pinned ? "green" : "var(--glass)";
+    li.style.background = note.pinned ? "#ab3edad9" : "var(--glass)";
 
     li.innerHTML = `
-        <div class="note-text">${text}</div>
+        <div class="note-text">${note.text}</div>
         <div class="note-actions">
             <button class="pin-btn">Pin</button>
             <button class="delete-btn">Delete</button>
         </div>
     `;
 
-    // Pin button
     li.querySelector(".pin-btn").addEventListener("click", () => {
         let notes = JSON.parse(localStorage.getItem("notes")) || [];
+        const newPinned = li.style.background !== "#5ac06dda";
+        li.style.background = newPinned ? "#5ac06dda" : "var(--glass)";
 
-        // Toggle pin color
-        const newPinned = li.style.background !== "#815ac0";
-        li.style.background = newPinned ? "#815ac0" : "var(--glass)";
-
-        // Update saved pinned state
         notes = notes.map(n =>
-            n.text === text ? { text: n.text, pinned: newPinned } : n
+            n.id == li.dataset.id ? { ...n, pinned: newPinned } : n
         );
 
         localStorage.setItem("notes", JSON.stringify(notes));
     });
 
-    // Delete button
     li.querySelector(".delete-btn").addEventListener("click", () => {
-        deleteNote(text);
+        deleteNote(parseInt(li.dataset.id));
         li.remove();
     });
 
     notesList.appendChild(li);
 }
+
 
 
 // 5. Background chooser -----------------------------------

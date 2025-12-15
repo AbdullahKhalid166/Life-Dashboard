@@ -26,22 +26,14 @@
 
 
         <div class="header-right">
-    <div id="weather" class="weather">—°C</div>
-</div>
+            <div id="sun-icon"><img src="assets/images/Sun.svg" alt="Sun"></div>
+            <div id="moon-icon"><img src="assets/images/Moon.svg" alt="Moon"></div>
+            <div id="weather" class="weather">—°C</div>
+        </div>
 
 <div id="weatherDetails"></div>
 
     </header>
-
-<nav id="sideMenu" aria-hidden="true">
-  <ul>
-    <li><button data-module="dashboard">Dashboard</button></li>
-    <li><button data-module="todo">To-Do</button></li>
-    <li><button data-module="notes">Notes</button></li>
-    <li><button data-module="focus">Focus</button></li>
-    <li><button data-module="tools">Tools</button></li>
-  </ul>
-</nav>
 
     <!-- Dashboard main -->
     <div class="center-bar">
@@ -98,9 +90,30 @@
 </div>
 
 </section>
+
+<!-- Global Sidebar -->
+<nav id="sideMenu">
+  <ul>
+    <li><button data-module="dashboard">Dashboard</button></li>
+    <li><button data-module="todo">To-Do</button></li>
+    <li><button data-module="notes">Notes</button></li>
+    <li><button data-module="focus">Focus</button></li>
+    <li class="has-submenu">
+      <button data-module="tools">Tools</button>
+      <ul class="submenu">
+        <li><button data-calculator="math">Math Calculator</button></li>
+        <li><button data-calculator="gpa">GPA Calculator</button></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
 <!--todo list-->
 <section id="todoSection" class="module-section">
     <header class="app-header">
+        <button class="menu-toggle">
+  <img src="assets/images/menu.png" alt="Menu" width="24" height="24">
+</button>
         <h2>To-Do Module</h2>
     </header>
     <div class="center-bar">
@@ -110,10 +123,25 @@
         <p>Footer / Controls for To-Do</p>
     </footer>
 </section>
-<section id="notesSection" class="module-section">Notes Content</section>
+<section id="notesSection" class="module-section">
+    <header class="app-header">
+        <button class="menu-toggle">
+  <img src="assets/images/menu.png" alt="Menu" width="24" height="24">
+</button>
+        <h2>Notes Module</h2>
+    </header>
+    Notes Content
+</section>
 
-<section id="focusSection" class="module-section">Focus Content</section>
-<section id="toolsSection" class="module-section">Tools Content</section>
+<section id="focusSection" class="module-section">
+    <header class="app-header">
+        <button class="menu-toggle">
+  <img src="assets/images/menu.png" alt="Menu" width="24" height="24">
+</button>
+        <h2>Focus Module</h2>
+    </header>
+    Focus Content
+</section>
 
 <!-- JS FILES -->
 <script src="js/app.js"></script>

@@ -4,9 +4,9 @@
 :root {
   --bg: #17191e;        /* main background */
   --card: #12161c;      /* card/panel background */
-  --accent: #06b6d4;    /* main accent */
-  --muted: #95a1b3;     /* muted text */
-  --glass: rgba(255, 255, 255, 0.03); /* glass effect */
+  --accent: #007ACC;
+  --muted: #8a8a8a;
+  --glass: rgba(255,255,255,0.03);
 }
 
 
@@ -128,15 +128,17 @@ html, body {
 /* Background chooser panel */
 #bgModal {
     position: fixed;
-    bottom: 100px;  /* same as notes panel */
-    left: 18px;     /* same as notes panel */
-    width: 320px;   /* same size as notes panel */
-    background: var(--card);
-    border-radius: 10px;
-    padding: 12px;
-    z-index: 210;
-    box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-    max-height: 400px;
+    bottom: 90px;
+    left: 18px;
+    width: 320px;
+    background-color: #161616d8; 
+    border-radius: 28px;       
+    backdrop-filter: blur(82px); 
+    -webkit-backdrop-filter: blur(82px); /* semi-transparent white for overlay effect */
+    border-radius: 16px;                   /* smoother, modern rounding */
+    padding: 16px 20px;                    /* more spacious padding */
+    box-shadow: 0 12px 40px rgba(1, 1, 1, 0.25); /* softer shadow for depth */
+    max-height: 380px;
     overflow-y: auto;
     font-family: 'Poppins', sans-serif;
 }
@@ -175,7 +177,6 @@ html, body {
     border-color: var(--accent);
 }
 
-/* Buttons below images */
 #dashboardSection .bg-buttons {
     display: flex;
     justify-content: space-between;
@@ -194,37 +195,63 @@ html, body {
     cursor: pointer;
 }
 
+/* Start Focusing Button */
 #bgModal #bgReset {
-    background-color: var(--muted); /* muted color for Reset */
-    color: var(--card);             /* text contrasting with dashboard card */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 15px;
+  gap: 15px;
+  background-color: #c52232e7;
+  outline: 3px #ba0f20e7 solid;
+  outline-offset: -3px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 400ms;
+  color: #dfdfdf;       
 }
 
 #bgModal #bgReset:hover {
-    background-color: rgb(199, 4, 4); /* accent on hover */
-    color: #fff;
+  background-color: transparent;
+}
+
+/* From Uiverse.io by kamehame-ha */ 
+#bgModal #bgClose{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 15px;
+  gap: 15px;
+  background-color: rgba(77, 75, 75, 0.814);
+  outline: 3px rgb(66 66 66) solid;
+  outline-offset: -3px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 400ms;
+  color: #dfdfdf;
 }
 
 #bgModal #bgClose {
-    background-color: #34a0a4; /* match dashboard accent */
-    color: #fff;
+  transition: 400ms;
 }
 
 #bgModal #bgClose:hover {
-    background-color: var(--accent); /* lighter accent on hover */
+  background-color: transparent;
 }
-
-
 /* ===== Sticky Notes Panel ===== */
 #dashboardSection .notes-panel {
     position: fixed;
     right: 18px;
-    bottom: 100px; 
-    width: 320px;  
-    background: var(--card);
-    border-radius: 10px;
-    padding: 12px;
-    z-index: 210;
-    box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+    bottom: 100px;
+    width: 320px;
+    background-color: #161616d8;
+    border-radius: 16px;
+    backdrop-filter: blur(82px);
+    -webkit-backdrop-filter: blur(82px);
+    padding: 16px 20px;
+    box-shadow: 0 12px 40px rgba(1, 1, 1, 0.25);
     font-family: 'Poppins', sans-serif;
     max-height: 400px;
     overflow-y: auto;
@@ -239,7 +266,7 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 #dashboardSection .notes-header h3 {
@@ -252,36 +279,39 @@ html, body {
 /* Notes Controls */
 #dashboardSection .notes-controls {
     display: flex;
-    gap: 8px;
-    margin-bottom: 12px;
+    gap: 10px;
+    margin-bottom: 16px;
 }
 
 #dashboardSection .notes-controls input {
     flex: 1;
-    padding: 6px 8px;
+    padding: 8px 10px;
     border-radius: 6px;
-    border: 1px solid rgba(255,255,255,0.03);
-    background: transparent;
-    color: inherit;
+    border: 1px solid rgba(255,255,255,0.05);
+    background-color: rgba(255,255,255,0.03);
+    color: #dfdfdf;
     font-family: 'Poppins', sans-serif;
 }
 
 #dashboardSection .notes-controls button {
-    flex: none;
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    background: #34a0a4;
-    color: #000000;
-    font-weight: 500;
-    transition: background 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 15px;
+  gap: 15px;
+  background-color: #007ACC;
+  outline: 3px #007ACC solid;
+  outline-offset: -3px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 400ms;
+  color: #dfdfdf;   
 }
 
 #dashboardSection .notes-controls button:hover {
-    background: #00ac95; /* lighter accent on hover */
+    background-color: transparent;
 }
-
 
 
 /* Notes List */
@@ -293,48 +323,24 @@ html, body {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
-#dashboardSection .notes-list li {
+#dashboardSection .note-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 8px;
-    padding: 8px;
+    gap: 10px;
+    padding: 10px;
     border-radius: 8px;
-    background: var(--glass);
-    margin-bottom: 8px;
-    font-family: 'Poppins', sans-serif;
-}
-
-#dashboardSection .notes-list li span {
-    flex: 1;
-    word-break: break-word;
-}
-
-/* Delete note button inside list */
-#dashboardSection .notes-list li button {
-    background: transparent;
-    border: none;
-    color: #027d7f;
-    cursor: pointer;
-}
-
-/* Individual Note Items */
-#dashboardSection .note-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    padding: 8px;
-    border-radius: 6px;
-    background: var(--glass); /* same glass effect as bg images */
-    position: relative;
-    transition: transform 0.2s ease;
+    background-color: rgba(255,255,255,0.03);
+    border: 2px solid rgba(255,255,255,0.03);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 #dashboardSection .note-item:hover {
-    transform: scale(1.02);
+    box-shadow: var(--accent);
+    border-color: var(--accent);
 }
 
 /* Note Text */
@@ -346,22 +352,24 @@ html, body {
 }
 
 /* Note Action Buttons */
+#dashboardSection .note-actions {
+    display: flex;
+    gap: 6px;
+}
+
 #dashboardSection .note-actions button {
     background: transparent;
     border: none;
-    color: var(--muted);
+    color: rgba(255, 255, 255, 0.799);
     cursor: pointer;
     font-size: 0.9rem;
-    padding: 4px;
+    padding: 4px 6px;
     transition: color 0.2s ease;
 }
 
 #dashboardSection .note-actions button:hover {
-    color: var(--accent);
+    color: #151515cd; /* accent color on hover */
 }
-
-
-
 
 .menu-toggle {
   background: none;
@@ -375,8 +383,12 @@ html, body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px; /* increase clickable area */
-  border-radius: 6px; /* optional, for nice hover */
+  padding: 10px; 
+  filter: brightness(85%); 
+}
+
+#menuBtn:hover {
+    filter: brightness(100%); 
 }
 
 #sideMenu {
@@ -384,7 +396,10 @@ html, body {
   left: 16px;
   top: 60px;
   width: 220px;
-  background: #0b1220;
+  background-color: #161616d8; 
+  border-radius: 28px;       
+  backdrop-filter: blur(82px); 
+  -webkit-backdrop-filter: blur(82px);  
   padding: 20px;
   border-radius: 15px;
   display: none; /* hidden by default */
@@ -394,9 +409,6 @@ html, body {
 #sideMenu[aria-hidden="false"] {
   display: block; /* shows instantly */
 }
-
-
-
 
 /* Remove default list styles */
 #sideMenu ul {
@@ -417,7 +429,7 @@ html, body {
   color: #e6eef6;
   background: none;
   border: none;
-  font-size: 16px;
+  font-size: 14px;
   font-family:'Poppins' , sans-serif;
   cursor: pointer;
   padding: 6px 0;
@@ -433,7 +445,7 @@ html, body {
   bottom: 0;
   width: 0;
   height: 2px;
-  background-color: #06b6d4; /* accent color */
+  background-color: #007ACC; /* accent color */
   transition: width 0.3s ease;
 }
 
@@ -441,12 +453,11 @@ html, body {
   width: 100%;
 }
 
-/* Weather button base */
-#weather {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 350;  /* between 300–400 */
-    font-size: 20px;
-    color: #e6eef6;
+/* Weather container with sun image */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between sun and weather text */
     padding: 6px 14px;
     border-radius: 10px;
     cursor: pointer;
@@ -454,19 +465,38 @@ html, body {
     backdrop-filter: blur(2px);
 }
 
-/* Hover: strong glassy glow */
-#weather:hover {
+.header-right:hover {
     background: rgba(255, 255, 255, 0.075);
     backdrop-filter: blur(6px);
 }
 
-/* More details panel */
+/* Weather text styling */
+#weather {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 350;
+    font-size: 20px;
+    color: #e6eef6;
+    margin: 0; /* Remove default margins */
+}
+
+/* Sun image styling */
+.header-right img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0.9); /* Slightly dim the sun icon */
+    transition: filter 0.25s ease;
+}
+
+
 #weatherDetails {
     position: absolute;
     right: 16px;
     top: 65px;
     width: 220px;
-    background: rgba(15, 23, 36, 0.75);
+    background-color: #161616d8; 
+    border-radius: 28px;       
+    backdrop-filter: blur(82px); 
+    -webkit-backdrop-filter: blur(82px);
     padding: 14px;
     border-radius: 12px;
     backdrop-filter: blur(10px);
@@ -480,7 +510,7 @@ html, body {
 #weatherDetails p {
     margin: 6px 0;
     font-size: 14px;
-    color: var(--muted);
+    color: rgb(238, 235, 235);
 }
 
 
@@ -488,13 +518,6 @@ html, body {
 @media (max-width: 800px) {
   #dashboardSection .clock {
     font-size: 14vmin;
-  }
-
-  #dashboardSection .notes-panel {
-    width: 90%;
-    left: 5%;
-    right: 5%;
-    bottom: 80px;
   }
 
   #dashboardSection .bg-grid img {
@@ -508,13 +531,6 @@ html, body {
     font-size: 14vmin;
   }
 
-  #dashboardSection .notes-panel {
-    width: 90%;
-    left: 5%;
-    right: 5%;
-    bottom: 80px;
-  }
-
   #dashboardSection .bg-grid img {
     width: 30%;
     height: auto;
@@ -524,3 +540,18 @@ html, body {
   }
 
 }
+@keyframes fadeInNote {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#dashboardSection .note-item {
+  animation: fadeInNote 0.3s ease-out;
+}
+
