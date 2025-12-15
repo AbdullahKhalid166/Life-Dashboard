@@ -27,6 +27,17 @@ function updateClock() {
     else timeGreeting = "Good Night";
 
     greetingEl.textContent = `${timeGreeting}, ${userName}!`;
+
+    // Image logic: Moon for night (Good Night), Sun for day
+    const sunDiv = document.getElementById('sun-icon');
+    const moonDiv = document.getElementById('moon-icon');
+    if (timeGreeting === "Good Night") {
+        if (sunDiv) sunDiv.style.display = 'none';
+        if (moonDiv) moonDiv.style.display = 'block';
+    } else {
+        if (sunDiv) sunDiv.style.display = 'block';
+        if (moonDiv) moonDiv.style.display = 'none';
+    }
 }
 
 // Update immediately and then every minute
