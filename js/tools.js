@@ -59,6 +59,7 @@ function createGPACalculator() {
     `;
 }
 
+
 function calculateMath() {
     const input = document.getElementById('mathInput').value;
     try {
