@@ -59,27 +59,14 @@ function createGPACalculator() {
     `;
 }
 
-let calcInputStr = '';
 
-function calcAppend(value) {
-    calcInputStr += value;
-    document.getElementById('calcInput').textContent = calcInputStr;
-    document.getElementById('calcOutput').textContent = '';
-}
-
-function calcClear() {
-    calcInputStr = '';
-    document.getElementById('calcInput').textContent = '';
-    document.getElementById('calcOutput').textContent = '';
-}
-
-function calcCalculate() {
+function calculateMath() {
+    const input = document.getElementById('mathInput').value;
     try {
-        if (!calcInputStr) return;
-        const result = eval(calcInputStr);
-        document.getElementById('calcOutput').textContent = result;
-    } catch {
-        document.getElementById('calcOutput').textContent = 'Error';
+        const result = eval(input);
+        document.getElementById('mathResult').innerHTML = `Result: ${result}`;
+    } catch (e) {
+        document.getElementById('mathResult').innerHTML = 'Error: Invalid expression';
     }
 }
 
