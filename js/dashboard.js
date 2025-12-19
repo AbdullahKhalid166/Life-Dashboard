@@ -157,7 +157,7 @@ const bgReset = document.getElementById("bgReset");
 const dashboard = document.getElementById("dashboardSection");
 
 // Store original background
-const originalBg = dashboard.style.backgroundImage || "url('assets/images/bg16.jpg')";
+const originalBg = document.body.style.backgroundImage || "url('assets/images/bg16.jpg')";
 
 // Open panel
 bgBtn.addEventListener("click", () => {
@@ -171,14 +171,14 @@ bgClose.addEventListener("click", () => {
 
 // Reset background
 bgReset.addEventListener("click", () => {
-    dashboard.style.backgroundImage = originalBg;
+    document.body.style.backgroundImage = originalBg;
     bgModal.classList.add("hidden");
 });
 
 // Change background when image clicked
 bgModal.querySelectorAll(".bg-grid img").forEach(img => {
     img.addEventListener("click", () => {
-        dashboard.style.backgroundImage = `url('${img.src}')`;
+        document.body.style.backgroundImage = `url('${img.src}')`;
     });
 });
 

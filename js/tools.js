@@ -114,3 +114,24 @@ function calculateGPA() {
     const gpa = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : 0;
     document.getElementById('gpaResult').innerHTML = `GPA: ${gpa}`;
 }
+
+// Calculator functions
+function calcAppend(value) {
+    const input = document.getElementById('calcInput');
+    input.innerText += value;
+}
+
+function calcClear() {
+    document.getElementById('calcInput').innerText = '';
+    document.getElementById('calcOutput').innerText = '';
+}
+
+function calcCalculate() {
+    const input = document.getElementById('calcInput').innerText;
+    try {
+        const result = eval(input);
+        document.getElementById('calcOutput').innerText = result;
+    } catch (e) {
+        document.getElementById('calcOutput').innerText = 'Error';
+    }
+}

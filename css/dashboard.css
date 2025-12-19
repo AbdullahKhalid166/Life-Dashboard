@@ -15,21 +15,20 @@ html, body {
   padding: 0;
   height: 100%;
   width: 100%;
-  background: transparent; /* allow dashboard image to show */
+  background: url("../assets/images/bg12.jpg") no-repeat center center / cover;
 }
 
 
 .module-section {
     display: none;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    color: #e6eef6;
 }
 
 #dashboardSection {
   display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* full height */
-  width: 100%;       /* full width */
-  background: url("../assets/images/bg16.jpg") no-repeat center center / cover;
-  color: #e6eef6;
 }
 
 .center-bar {
@@ -287,7 +286,7 @@ html, body {
     flex: 1;
     padding: 8px 10px;
     border-radius: 6px;
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     background-color: rgba(255,255,255,0.03);
     color: #dfdfdf;
     font-family: 'Poppins', sans-serif;
