@@ -1,0 +1,200 @@
+html, body { 
+  margin: 0; 
+  padding: 0; 
+  height: 100%; 
+  overflow: hidden; 
+  /* hide global scrollbars */ 
+}
+/* Hide sidebar in focus mode */
+
+/* Focus Section */
+#focusSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align content to top */
+  min-height: 100vh;
+  width: 100%;
+  gap: 1.5rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  background: url("../assets/images/bgFocus.jpg") no-repeat center center / cover;
+  overflow: hidden; /* remove scrollbars */
+}
+
+/* Header */
+#focusSection .app-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+}
+
+/* Center Content */
+#focusSection .focus-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 480px;
+  box-sizing: border-box;
+  padding: 0 1rem;
+  overflow: hidden; /* prevent inner overflow */
+}
+
+/* Focus Ring Container */
+.focus-ring {
+  position: relative;
+  width: 80vw; /* responsive size */
+  max-width: 260px;
+  height: 80vw;
+  max-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Circular Progress Ring */
+.progress-ring {
+  position: absolute;
+  transform: rotate(-90deg);
+}
+
+.progress-ring__circle {
+  stroke-dasharray: 754; /* 2πr */
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s linear;
+  stroke: rgba(255, 255, 255, 0.6);
+  stroke-linecap: round;
+}
+
+/* Focus Text in Center */
+.focus-text {
+  position: absolute;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+}
+
+.focus-text .mode {
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
+
+.focus-text .timer {
+  font-size: clamp(2.5rem, 8vw, 4rem); /* responsive font */
+  font-weight: 600;
+  margin: 5px 0;
+}
+
+.focus-text .task-text {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* Focus Controls Buttons */
+#focusSection .focus-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  flex-shrink: 0; /* prevent shrinking */
+}
+
+#focusSection .focus-controls button {
+  flex: 1 1 calc(50% - 0.5rem);
+  min-width: 100px;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: none;
+  background-color: #007ACC;
+  color: #0f1724;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#focusSection .focus-controls button:hover {
+  background-color: #FFC107;
+  transform: translateY(-2px);
+}
+
+/* Audio & Task Select Styling */
+#focusSection .focus-audio,
+#focusSection .focus-task {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+}
+
+#focusSection select,
+#focusSection input[type="range"] {
+  width: 100%;
+  max-width: 100%;
+  padding: 0.5rem 0.7rem;
+  border-radius: 6px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 1rem;
+}
+
+/* Focus Module Task Select */
+#focusSection .focus-task select {
+  width: 100%;
+  max-width: 100%;
+  padding: 0.5rem 0.7rem;
+  border-radius: 6px;
+  border: none;
+  background-color: #0f1724; /* dark background */
+  color: #fff;               /* white text */
+  border: 1px solid #444;    /* optional border for better visibility */
+}
+
+#focusSection .focus-task select option {
+width: 100%;
+  max-width: 100%;
+  padding: 0.5rem 0.7rem;
+  border-radius: 6px;
+  border: none;
+  background-color: #0f1724; /* match the select bg */
+  color: #fff;               /* white text */
+}
+
+
+/* Focus Controls Fade Effect */
+.focus-controls {
+  opacity: 0.15;
+  transition: opacity 0.3s;
+}
+
+.focus-controls:hover {
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  #focusSection .focus-center {
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  #focusSection .focus-controls button {
+    flex: 1 1 100%; /* One button per row */
+  }
+
+  .focus-ring {
+    width: 70vw;
+    height: 70vw;
+  }
+
+  .focus-text .timer {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+}

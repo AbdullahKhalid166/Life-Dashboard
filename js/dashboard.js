@@ -21,9 +21,9 @@ function updateClock() {
 
     // Greeting logic
     let timeGreeting = "";
-    if (hours >= 5 && hours < 12) timeGreeting = "Good Morning";
+    if (hours >= 0 && hours < 12) timeGreeting = "Good Morning";
     else if (hours >= 12 && hours < 18) timeGreeting = "Good Afternoon";
-    else if (hours >= 18 && hours < 22) timeGreeting = "Good Evening";
+    else if (hours >= 18 && hours < 24) timeGreeting = "Good Evening";
     else timeGreeting = "Good Night";
 
     greetingEl.textContent = `${timeGreeting}, ${userName}!`;
@@ -83,15 +83,15 @@ notesClose.addEventListener("click", () => notesPanel.classList.add("hidden"));
 document.addEventListener("DOMContentLoaded", loadNotes);
 
 function loadNotes() {
-    let notes = JSON.parse(localStorage.getItem("notes")) || [];
-    notes.forEach(note => addNoteToUI(note)); // always pass full object
+    let notes = JSON.parse(localStorage.getItem("notes"));
+    notes.forEach(note => addNoteToUI(note)); 
 }
 
 addNoteBtn.addEventListener("click", () => {
     const text = noteText.value.trim();
     if (!text) return;
 
-    const id = Date.now(); // generate once
+    const id = Date.now(); 
     const note = { id, text, pinned: false };
 
     addNoteToUI(note);
@@ -157,7 +157,7 @@ const bgReset = document.getElementById("bgReset");
 const dashboard = document.getElementById("dashboardSection");
 
 // Store original background
-const originalBg = document.body.style.backgroundImage || "url('assets/images/bg16.jpg')";
+const originalBg = document.body.style.backgroundImage || "url('assets/images/bg12.jpg')";
 
 // Open panel
 bgBtn.addEventListener("click", () => {
@@ -182,18 +182,6 @@ bgModal.querySelectorAll(".bg-grid img").forEach(img => {
     });
 });
 
-
-// 6. Responsive side menu -----------------------------
-// Get references
-const menuBtn = document.getElementById('menuBtn');
-const sideMenu = document.getElementById('sideMenu');
-
-// Toggle menu visibility on button click
-menuBtn.addEventListener('click', (e) => {
-  e.stopPropagation(); // Prevent event bubbling if needed
-  const isHidden = sideMenu.getAttribute('aria-hidden') === 'true';
-  sideMenu.setAttribute('aria-hidden', isHidden ? 'false' : 'true');
-});
 
 // 7. Weather widget -------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {

@@ -1,31 +1,29 @@
-document.addEventListener("click", function(e){
-    if (e.target.dataset.module && e.target.dataset.module !== "tools") {
-        // Remove any existing calculators
-        document.querySelectorAll(".calculator, .gpa-calculator").forEach(calc => calc.remove());
+document.addEventListener("click", function (e) {
 
-        // Hide all modules
+    // MODULE SWITCH
+    if (e.target.dataset.module && e.target.dataset.module !== "tools") {
+
+        document.querySelectorAll(".calculator, .gpa-calculator")
+            .forEach(calc => calc.remove());
+
         document.querySelectorAll(".module-section")
             .forEach(sec => sec.style.display = "none");
 
-        // Show selected module
         const id = e.target.dataset.module + "Section";
         document.getElementById(id).style.display = "flex";
 
-        // Save current module
         localStorage.setItem("currentModule", e.target.dataset.module);
 
-        // Close sidebar
         document.getElementById("sideMenu").classList.remove("open");
     }
 
+    // CALCULATOR
     if (e.target.dataset.calculator) {
-        const calculatorType = e.target.dataset.calculator;
-        showCalculator(calculatorType);
-
-        // Close sidebar
+        showCalculator(e.target.dataset.calculator);
         document.getElementById("sideMenu").classList.remove("open");
     }
 });
+
 
 // Function to show calculator in current module
 function showCalculator(type) {
@@ -44,12 +42,38 @@ function showCalculator(type) {
 }
 
 // Menu toggle
+// universal menu toggle (single source of truth)
 document.querySelectorAll(".menu-toggle").forEach(btn => {
-    btn.addEventListener("click", function() {
-        const menu = document.getElementById("sideMenu");
-        menu.classList.toggle("open");
-    });
+  btn.addEventListener("click", function(e) {
+    e.stopPropagation();
+
+    const sideMenu = document.getElementById("sideMenu");
+    if(!sideMenu) return;
+
+    // toggle visual state
+    const isOpen = sideMenu.classList.toggle("open");
+
+    // sync ARIA attributes
+    sideMenu.setAttribute("aria-hidden", !isOpen);
+    // update global button expanded state (if present)
+    const globalBtn = document.getElementById("globalMenuBtn");
+    if(globalBtn) globalBtn.setAttribute("aria-expanded", isOpen);
+  });
 });
+
+// close menu when clicking outside
+document.addEventListener("click", function(e) {
+  const sideMenu = document.getElementById("sideMenu");
+  if (!sideMenu) return;
+  if (sideMenu.contains(e.target)) return;
+  if (sideMenu.classList.contains("open")) {
+    sideMenu.classList.remove("open");
+    sideMenu.setAttribute("aria-hidden", "true");
+    const globalBtn = document.getElementById("globalMenuBtn");
+    if(globalBtn) globalBtn.setAttribute("aria-expanded", "false");
+  }
+});
+
 
 // Sub-menu toggle for Tools
 document.addEventListener("click", function(e) {
@@ -71,3 +95,5 @@ document.addEventListener("DOMContentLoaded", function() {
         section.style.display = "flex";
     }
 });
+
+

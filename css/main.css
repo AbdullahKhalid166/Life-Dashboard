@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --menu-left: 16px;
+  --menu-top: 18px; /* tweak this to align visually with header */
+}
+
+/* fixed global button (always at same viewport spot) */
+#globalMenuBtn {
+  position: fixed;
+  left: var(--menu-left);
+  top: var(--menu-top);
+  z-index: 2000;
+  background: none;
+  border: none;
+  padding: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* hide the per-module header menu buttons so only the global one is visible */
+.app-header .menu-toggle {
+  display: none !important;
+}
+
+/* keep the image comfortable */
+#globalMenuBtn img {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+

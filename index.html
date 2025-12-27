@@ -9,7 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/todo.css">
+    <!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-papGmlphdVjUoXU8jP3/mr2Z4f0bI9P/qkbVt5XK5QF6Y7Yx5GvKafcKX8bTRxO4Z3CkY3N03Z57Z1l8zDQK1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="/css/todo.css">
     <link rel="stylesheet" href="css/notes.css">
     <link rel="stylesheet" href="css/focus.css">
     <link rel="stylesheet" href="css/tools.css">
@@ -19,7 +22,7 @@
 <section id="dashboardSection" class="module-section">
     <!-- Dashboard header -->
     <header class="app-header">
-        <button id="menuBtn" class="menu-toggle">
+       <button class="menu-toggle" aria-label="Open main menu">
   <img src="assets/images/menu.png" alt="Menu" width="24" height="24">
 </button>
 
@@ -88,6 +91,10 @@
 </div>
 
 </section>
+<!-- Global fixed menu button (only one visible) -->
+<button id="globalMenuBtn" class="menu-toggle" aria-label="Open main menu" aria-expanded="false" aria-controls="sideMenu">
+  <img src="assets/images/menu.png" alt="Menu" width="24" height="24">
+</button>
 
 <!-- Global Sidebar -->
 <nav id="sideMenu">
@@ -108,45 +115,196 @@
 
 <!--todo list-->
 <section id="todoSection" class="module-section">
-    <header class="app-header">
-        <button class="menu-toggle">
+        <header class="app-header">
+        <button class="menu-toggle" aria-label="Open main menu">
   <img src="assets/images/menu.png" alt="Menu" width="24" height="24">
 </button>
-        <h2>To-Do Module</h2>
     </header>
-    <div class="center-bar">
-        <p>Here is your To-Do list...</p>
+    <div class="container">
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <h2 class="todo-title">My Tasks</h2>
+      </div>
+
+      <!-- Stats -->
+      <div class="task-stats">
+        <span id="total">0 TOTAL TASKS</span>
+        <span id="pending">0 PENDING</span>
+        <span id="completed">0 COMPLETED</span>
+      </div>
+
+      <!-- Task Form -->
+      <form id="task-form">
+        <div>
+          <h3><b><label for="task-input">Task</label></b></h3>
+          <input type="text" id="task-input" placeholder="Enter task">
+        </div>
+
+        <div>
+          <h3><b><label for="task-date-picker">Deadline</label></b></h3>
+          <input type="date" id="task-date-picker">
+        </div>
+
+        <div>
+          <h3><b><label for="task-priority">Priority</label></b></h3>
+          <select id="task-priority">
+            <option value="Low" class="priority-low">Low</option>
+            <option value="Medium" class="priority-medium" selected>Medium</option>
+            <option value="High" class="priority-high">High</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-add">
+          <i class="fa fa-plus"></i> Add
+        </button>
+      </form>
+
+      <!-- Tabs -->
+      <div class="task-tabs">
+        <button data-filter="all">All</button>
+        <button data-filter="pending">Pending</button>
+        <button data-filter="completed">Completed</button>
+        <button id="clear-completed" class="danger">Clear Completed</button>
+      </div>
+
+      <!-- View Controls -->
+      <div class="view-controls">
+        <select id="sortTasks">
+          <option value="default">Sort Default</option>
+          <option value="priority">Sort by Priority</option>
+          <option value="date">Sort by Date</option>
+        </select>
+        <div class="view-toggle">
+          <button id="listView"><i class="fa fa-list"></i></button>
+          <button id="gridView"><i class="fa fa-th"></i></button>
+        </div>
+      </div>
+
+      <!-- Task List -->
+      <ul id="task-list"></ul>
+      <p id="empty-message">All caught up!</p>
+
     </div>
-    <footer class="app-footer">
-        <p>Footer / Controls for To-Do</p>
-    </footer>
-</section>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   
-<section id="notesSection" class="module-section">Notes Content</section>
 <section id="notesSection" class="module-section">
     <header class="app-header">
-        <button class="menu-toggle">
+        <button class="menu-toggle" aria-label="Open main menu">
   <img src="assets/images/menu.png" alt="Menu" width="24" height="24">
 </button>
-        <h2>Notes Module</h2>
     </header>
-    Notes Content
+    <h2>Notes</h2>
+<div id="container">
+
+  <div id="leftside">
+
+    <div class="textareaa">
+      <div id="tarea" contenteditable="true" data-placeholder="Type here ...."></div>
+
+      <div id="txtbtn">
+        <p id="word_Counter">Word Counter : 0</p>
+        <div class="format-toolbar">
+          <button onclick="formatText('bold')"><b>B</b></button>
+          <button onclick="formatText('italic')"><i>I</i></button>
+          <button onclick="formatText('underline')"><u>U</u></button>
+        </div>
+        <button id="Clear">Clear</button>
+      </div>
+    </div>
+
+    <div class="btn">
+      <label id="notescategory" for="notescategory">Notes Category:
+      <select id="categories"> 
+        <option value="Study">Study</option>
+        <option value="Office">Office</option>
+        <option value="Personal">Personal</option>
+        <option value="Ideas">Ideas</option>
+      </select> 
+      </label>
+
+      <button id="addBtn">Add</button>
+      <button id="deleteBtn">Delete</button>
+      <button id="saveBtn">Update</button>
+    </div>
+
+  </div>
+
+  <div id="notelist"></div>
+
+</div>
 </section>
 
+<!--Focus Screen-->
 <section id="focusSection" class="module-section">
-    <header class="app-header">
-        <button class="menu-toggle">
+     <header class="app-header">
+        <button class="menu-toggle" aria-label="Open main menu">
   <img src="assets/images/menu.png" alt="Menu" width="24" height="24">
 </button>
-        <h2>Focus Module</h2>
     </header>
-    Focus Content
+
+    <div class="focus-center">
+        <!-- Countdown Timer -->
+        <div class="focus-ring">
+  <svg class="progress-ring" width="260" height="260">
+    <circle
+      class="progress-ring__circle"
+      stroke="rgba(255,255,255,0.2)"
+      stroke-width="8"
+      fill="transparent"
+      r="120"
+      cx="130"
+      cy="130"
+    />
+  </svg>
+
+  <div class="focus-text">
+    <span class="mode">FOCUS</span>
+    <div id="focusTimer" class="timer">25:00</div>
+  </div>
+</div>
+
+
+        <!-- Controls -->
+        <div class="focus-controls">
+            <button id="startBtn" class="btn">Start</button>
+            <button id="pauseBtn" class="btn">Pause</button>
+            <button id="stopBtn" class="btn">Stop</button>
+            <button id="extendBtn" class="btn">+5 min</button>
+        </div>
+
+        <!-- Background Audio -->
+        <div class="focus-audio">
+            <label for="bgAudioSelect">Background Sound:</label>
+            <select id="bgAudioSelect">
+                <option value="">None</option>
+                <option value="rain">Rain</option>
+                <option value="soft">Soft Music</option>
+                <option value="focus">Focus Music</option>
+                <option value="tilawat">Tilawat</option>
+            </select>
+
+            <!-- Volume control -->
+          <label for="bgVolume">Volume:</label>
+          <input type="range" id="bgVolume" min="0" max="1" step="0.01" value="0.5"> 
+            <audio id="bgAudio" loop></audio>
+        </div>
+
+        <!-- Task Pairing -->
+        <div class="focus-task">
+            <label for="taskSelect">Focus on task:</label>
+            <select id="taskSelect"></select>
+        </div>
+
+        <!-- Session Report -->
+        <div id="sessionReport" class="session-report"></div>
+    </div>
 </section>
 
 <!-- JS FILES -->
 <script src="js/app.js"></script>
 <script src="js/dashboard.js"></script>
-<script src="js/todo.js"></script>
+<script src="/js/todo.js"></script>
 <script src="js/notes.js"></script>
 <script src="js/focus.js"></script>
 <script src="js/tools.js"></script>

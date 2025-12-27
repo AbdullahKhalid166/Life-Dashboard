@@ -42,15 +42,16 @@ html, body {
 }
 
 /* Header */
-#dashboardSection .app-header {
+#dashboardSection .header-right {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0 16px;
-  height: 60px;
-  background: transparent; 
-  border: none;             
+  gap: 12px;
 }
+
 
 #dashboardSection .app-header .btn {
   background: transparent;
@@ -231,11 +232,6 @@ html, body {
   transition: 400ms;
   color: #dfdfdf;
 }
-
-#bgModal #bgClose {
-  transition: 400ms;
-}
-
 #bgModal #bgClose:hover {
   background-color: transparent;
 }
@@ -244,7 +240,7 @@ html, body {
     position: fixed;
     right: 18px;
     bottom: 100px;
-    width: 320px;
+    width: 350px;
     background-color: #161616d8;
     border-radius: 16px;
     backdrop-filter: blur(82px);
