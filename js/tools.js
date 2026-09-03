@@ -60,13 +60,54 @@ function createGPACalculator() {
 }
 
 
+function evaluateExpression(expression) {
+    const tokens = expression.match(/\d+(?:\.\d+)?|[+\-*/()]|\s+/g);
+    if (!tokens || tokens.join("") !== expression || !tokens.some(token => /\d/.test(token))) {
+        throw new Error("Invalid expression");
+    }
+
+    const values = [];
+    const operators = [];
+    const precedence = { "+": 1, "-": 1, "*": 2, "/": 2 };
+    const applyOperator = () => {
+        const operator = operators.pop();
+        const right = values.pop();
+        const left = values.pop();
+        if (left === undefined || right === undefined || operator === undefined) throw new Error("Invalid expression");
+        if (operator === "/" && right === 0) throw new Error("Division by zero");
+        values.push(operator === "+" ? left + right : operator === "-" ? left - right : operator === "*" ? left * right : left / right);
+    };
+
+    tokens.filter(token => !/^\s+$/.test(token)).forEach(token => {
+        if (/^\d/.test(token)) values.push(Number(token));
+        else if (token === "(") operators.push(token);
+        else if (token === ")") {
+            while (operators.at(-1) !== "(") {
+                if (!operators.length) throw new Error("Invalid expression");
+                applyOperator();
+            }
+            operators.pop();
+        } else {
+            while (operators.length && operators.at(-1) !== "(" && precedence[operators.at(-1)] >= precedence[token]) applyOperator();
+            operators.push(token);
+        }
+    });
+    while (operators.length) {
+        if (operators.at(-1) === "(") throw new Error("Invalid expression");
+        applyOperator();
+    }
+    if (values.length !== 1 || !Number.isFinite(values[0])) throw new Error("Invalid expression");
+    return values[0];
+}
+
 function calculateMath() {
-    const input = document.getElementById('mathInput').value;
+    const input = document.getElementById('mathInput');
+    const output = document.getElementById('mathResult');
+    if (!input || !output) return;
     try {
-        const result = eval(input);
-        document.getElementById('mathResult').innerHTML = `Result: ${result}`;
-    } catch (e) {
-        document.getElementById('mathResult').innerHTML = 'Error: Invalid expression';
+        output.textContent = `Result: ${evaluateExpression(input.value)}`;
+    } catch {
+        output.textContent = 'Error: Invalid expression';
     }
 }
 
@@ -129,7 +170,7 @@ function calcClear() {
 function calcCalculate() {
     const input = document.getElementById('calcInput').innerText;
     try {
-        const result = eval(input);
+        const result = evaluateExpression(input);
         document.getElementById('calcOutput').innerText = result;
     } catch (e) {
         document.getElementById('calcOutput').innerText = 'Error';

@@ -125,10 +125,12 @@ bgAudioSelect.addEventListener('change', () => {
 function reportSession() {
     const minutesFocused = Math.floor(25 - timer / 60);
     const task = taskSelect.value || "No task selected";
-    sessionReport.innerHTML = `
-        <p>You focused for ${minutesFocused} minutes on: <strong>${task}</strong></p>
-        <p>Next break recommended: 5 minutes</p>
-    `;
+    sessionReport.replaceChildren();
+    const summary = document.createElement("p");
+    summary.textContent = `You focused for ${minutesFocused} minutes on: ${task}`;
+    const recommendation = document.createElement("p");
+    recommendation.textContent = "Next break recommended: 5 minutes";
+    sessionReport.append(summary, recommendation);
 }
 
 // Event listeners

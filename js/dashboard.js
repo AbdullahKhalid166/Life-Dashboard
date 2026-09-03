@@ -75,6 +75,7 @@ const notesClose = document.getElementById("notesClose");
 const addNoteBtn = document.getElementById("addNoteBtn");
 const notesList = document.getElementById("notesList");
 const noteText = document.getElementById("noteText");
+const dashboardNotesKey = "dashboardNotes";
 
 // Show/hide panel
 notesBtn.addEventListener("click", () => notesPanel.classList.toggle("hidden"));
@@ -83,7 +84,7 @@ notesClose.addEventListener("click", () => notesPanel.classList.add("hidden"));
 document.addEventListener("DOMContentLoaded", loadNotes);
 
 function loadNotes() {
-    let notes = JSON.parse(localStorage.getItem("notes"));
+    let notes = window.readStoredJson(dashboardNotesKey, []);
     notes.forEach(note => addNoteToUI(note)); 
 }
 
@@ -101,15 +102,15 @@ addNoteBtn.addEventListener("click", () => {
 });
 
 function saveNote(note) {
-    let notes = JSON.parse(localStorage.getItem("notes")) || [];
+    let notes = window.readStoredJson(dashboardNotesKey, []);
     notes.push(note);
-    localStorage.setItem("notes", JSON.stringify(notes));
+    localStorage.setItem(dashboardNotesKey, JSON.stringify(notes));
 }
 
 function deleteNote(id) {
-    let notes = JSON.parse(localStorage.getItem("notes")) || [];
+    let notes = window.readStoredJson(dashboardNotesKey, []);
     notes = notes.filter(n => n.id !== id);
-    localStorage.setItem("notes", JSON.stringify(notes));
+    localStorage.setItem(dashboardNotesKey, JSON.stringify(notes));
 }
 
 function addNoteToUI(note) {
@@ -120,23 +121,25 @@ function addNoteToUI(note) {
     li.style.background = note.pinned ? "#ab3edad9" : "var(--glass)";
 
     li.innerHTML = `
-        <div class="note-text">${note.text}</div>
+        <div class="note-text"></div>
         <div class="note-actions">
-            <button class="pin-btn">Pin</button>
-            <button class="delete-btn">Delete</button>
+            <button type="button" class="pin-btn">Pin</button>
+            <button type="button" class="delete-btn">Delete</button>
         </div>
     `;
+    li.querySelector(".note-text").textContent = note.text;
 
     li.querySelector(".pin-btn").addEventListener("click", () => {
-        let notes = JSON.parse(localStorage.getItem("notes")) || [];
-        const newPinned = li.style.background !== "#5ac06dda";
+        let notes = window.readStoredJson(dashboardNotesKey, []);
+        const currentNote = notes.find(savedNote => savedNote.id == li.dataset.id);
+        const newPinned = !currentNote?.pinned;
         li.style.background = newPinned ? "#5ac06dda" : "var(--glass)";
 
         notes = notes.map(n =>
             n.id == li.dataset.id ? { ...n, pinned: newPinned } : n
         );
 
-        localStorage.setItem("notes", JSON.stringify(notes));
+        localStorage.setItem(dashboardNotesKey, JSON.stringify(notes));
     });
 
     li.querySelector(".delete-btn").addEventListener("click", () => {

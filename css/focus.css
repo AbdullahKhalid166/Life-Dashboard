@@ -2,8 +2,7 @@ html, body {
   margin: 0; 
   padding: 0; 
   height: 100%; 
-  overflow: hidden; 
-  /* hide global scrollbars */ 
+  overflow-x: hidden;
 }
 /* Hide sidebar in focus mode */
 
@@ -19,7 +18,7 @@ html, body {
   padding: 1rem;
   box-sizing: border-box;
   background: url("../assets/images/bgFocus.jpg") no-repeat center center / cover;
-  overflow: hidden; /* remove scrollbars */
+  overflow-y: auto;
 }
 
 /* Header */
@@ -41,7 +40,7 @@ html, body {
   max-width: 480px;
   box-sizing: border-box;
   padding: 0 1rem;
-  overflow: hidden; /* prevent inner overflow */
+  overflow: visible;
 }
 
 /* Focus Ring Container */
@@ -49,7 +48,8 @@ html, body {
   position: relative;
   width: 80vw; /* responsive size */
   max-width: 260px;
-  height: 80vw;
+  aspect-ratio: 1;
+  height: auto;
   max-height: 260px;
   display: flex;
   align-items: center;
@@ -59,6 +59,8 @@ html, body {
 /* Circular Progress Ring */
 .progress-ring {
   position: absolute;
+  width: 100%;
+  height: 100%;
   transform: rotate(-90deg);
 }
 
@@ -196,5 +198,9 @@ width: 100%;
 
   .focus-text .timer {
     font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  #focusSection {
+    padding: 0.75rem;
   }
 }

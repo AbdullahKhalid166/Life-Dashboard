@@ -38,23 +38,26 @@
   /* Container */
   #container {
     display: flex;
-    gap: 60px;
+    width: min(1200px, 100%);
+    gap: clamp(1rem, 5vw, 60px);
     align-items: flex-start;
     justify-content: center;
     flex-wrap: wrap;
+    margin-inline: auto;
   }
 
   #leftside {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 600px;
-    max-width: 90%;
+    width: min(600px, 100%);
+    max-width: calc(100% - 32px);
   }
 
   #tarea {
     width: 100%;
-    height: 400px;
+    min-height: 260px;
+    height: min(400px, 45vh);
     padding: 12px;
     font-size: 16px;
     color: rgb(233, 232, 232);
@@ -64,8 +67,8 @@
     resize: vertical;
     position: relative; 
     border-radius: 16px;
-    backdrop-filter: blur(82px);
     -webkit-backdrop-filter: blur(82px);
+    backdrop-filter: blur(82px);
     /* box-shadow: 0 12px 40px rgba(1, 1, 1, 0.25); */
     /* font-family: 'Poppins', sans-serif; */
     /* max-height: 400px; */
@@ -175,7 +178,7 @@
   /* Notes list */
   #notelist {
     max-width: 600px;
-    width: 100%;
+    width: min(600px, calc(100% - 32px));
     background-color: rgba(13,13,14,0.58);
     border-radius: 16px;
     border: 1px solid #393939e0;
@@ -185,8 +188,8 @@
     /* box-shadow: 0 3px 10px rgba(0,0,0,0.6); */
     resize: vertical;
     position: relative; 
-    backdrop-filter: blur(82px);
     -webkit-backdrop-filter: blur(82px);
+    backdrop-filter: blur(82px);
     /* box-shadow: 0 12px 40px rgba(1, 1, 1, 0.25); */
     /* font-family: 'Poppins', sans-serif; */
     /* max-height: 400px; */
@@ -247,6 +250,10 @@
       width: 90%;
       margin-left: 0;
     }
+
+    #container {
+      padding-bottom: 1.5rem;
+    }
   }
 
   @media (max-width: 500px) {
@@ -271,5 +278,9 @@
 
     .btn button {
       width: 100%;
+    }
+
+    #tarea {
+      height: 42vh;
     }
   }

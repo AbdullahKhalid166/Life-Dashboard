@@ -9,7 +9,7 @@ smart tools, it aims to build a personalized and distraction-free workspace for 
 
 3. Objectives 
 • To create an all-in-one personal dashboard for planning, writing, focusing, and quick 
-calculations. 
+<!-- calculations.  -->
 • To support healthy productivity habits through timers, reminders, and mood-based 
 interface changes. 
 • To provide an easy, secure, and permanent data experience using local storage (no login 

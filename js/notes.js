@@ -7,7 +7,7 @@ const deleteBtn = document.getElementById("deleteBtn");
 const saveBtn = document.getElementById("saveBtn");
 const categories = document.getElementById("categories");
 
-let notes = JSON.parse(localStorage.getItem("notes")) || [];
+let notes = window.readStoredJson("notes", []);
 let selectedNoteIndex = null;
 
 displayNotes();
@@ -45,7 +45,7 @@ function displayNotes() {
     const notesInCategory = notes.filter(note => note.category === category);
     notesInCategory.forEach(note => {
       const div = document.createElement("div");
-      div.innerHTML = note.text;
+      div.textContent = note.text.replace(/<[^>]*>/g, "");
       div.classList.add("note");
       div.onclick = () => {
         tarea.innerHTML = note.text;

@@ -10,7 +10,7 @@ let activeFilter = "all"; // track current active tab
 
 window.tasks = tasks;
 // Sound for completed task
-const taskCompleteSound = new Audio("/asssets/audio/acheivement.mp3");
+const taskCompleteSound = new Audio("assets/audios/acheivement.mp3");
 
 // Load tasks on page load
 document.addEventListener("DOMContentLoaded", () => {
@@ -27,7 +27,7 @@ function saveTasks(){
 // Load tasks from localStorage
 function loadTasks(){
     const saved = localStorage.getItem("tasks");
-    const loadedTasks = saved ? JSON.parse(saved) : [];
+    const loadedTasks = window.readStoredJson("tasks", []);
 
     tasks.length = 0;
     tasks.push(...loadedTasks);
@@ -65,6 +65,7 @@ function renderTasks(filter="all"){
 
   if(filtered.length === 0){
     emptyMessage.style.display = "block";
+    updateStats();
     return;
   }
   emptyMessage.style.display = "none";
@@ -75,19 +76,22 @@ function renderTasks(filter="all"){
                         task.priority === "Medium" ? "priority-medium" :
                         "priority-low";
     li.innerHTML = `
-      <input type="checkbox" ${task.completed ? "checked" : ""}>
-      <span>${task.text} <span class="${priorityClass}">${task.priority}</span> (${task.date || "No date"})</span>
+      <input type="checkbox" ${task.completed ? "checked" : ""} aria-label="Complete task">
+      <span><span class="task-text"></span> <span class="${priorityClass}">${task.priority}</span> (${task.date || "No date"})</span>
       <div class="task-btns">
-        <button class="edit-btn"><i class="fa-regular fa-pen-to-square"></i></button>
-        <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+        <button type="button" class="edit-btn" aria-label="Edit task"><i class="fa-regular fa-pen-to-square"></i></button>
+        <button type="button" class="delete-btn" aria-label="Delete task"><i class="fa-solid fa-trash"></i></button>
       </div>
     `;
+    li.querySelector(".task-text").textContent = task.text;
 
     li.querySelector("input").addEventListener("change", () => {
       task.completed = !task.completed;
       if(task.completed) {
-        taskCompleteSound.play();
-        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        taskCompleteSound.play().catch(() => {});
+        if (typeof confetti === "function") {
+          confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        }
       }
       saveTasks();
       renderTasks(activeFilter);
@@ -95,7 +99,7 @@ function renderTasks(filter="all"){
     });
 
     li.querySelector(".delete-btn").addEventListener("click", () => {
-      tasks = tasks.filter(t => t !== task);
+      tasks.splice(tasks.indexOf(task), 1);
       saveTasks();
       renderTasks(activeFilter);
         if (window.loadPendingTasks) window.loadPendingTasks();
@@ -106,7 +110,7 @@ function renderTasks(filter="all"){
       input.value = task.text;
       datePicker.value = task.date;
       prioritySelect.value = task.priority;
-      tasks = tasks.filter(t => t !== task);
+      tasks.splice(tasks.indexOf(task), 1);
       saveTasks();
       renderTasks(activeFilter);
       if (window.loadPendingTasks) window.loadPendingTasks();
@@ -128,9 +132,12 @@ function updateStats(){
 
 // Clear completed tasks
 document.getElementById("clear-completed").addEventListener("click", () => {
-  tasks = tasks.filter(t => !t.completed);
+  for (let index = tasks.length - 1; index >= 0; index--) {
+    if (tasks[index].completed) tasks.splice(index, 1);
+  }
   saveTasks();
   renderTasks(activeFilter);
+  if (window.loadPendingTasks) window.loadPendingTasks();
 });
 
 // Sorting

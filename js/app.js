@@ -1,7 +1,26 @@
+window.readStoredJson = function(key, fallback) {
+    try {
+        const value = localStorage.getItem(key);
+        return value ? JSON.parse(value) : fallback;
+    } catch {
+        return fallback;
+    }
+};
+
+function closeMenu() {
+    const sideMenu = document.getElementById("sideMenu");
+    const globalBtn = document.getElementById("globalMenuBtn");
+    if (!sideMenu) return;
+    sideMenu.classList.remove("open");
+    sideMenu.setAttribute("aria-hidden", "true");
+    if (globalBtn) globalBtn.setAttribute("aria-expanded", "false");
+}
+
 document.addEventListener("click", function (e) {
+    const moduleButton = e.target.closest("[data-module]");
 
     // MODULE SWITCH
-    if (e.target.dataset.module && e.target.dataset.module !== "tools") {
+    if (moduleButton && moduleButton.dataset.module !== "tools") {
 
         document.querySelectorAll(".calculator, .gpa-calculator")
             .forEach(calc => calc.remove());
@@ -9,18 +28,24 @@ document.addEventListener("click", function (e) {
         document.querySelectorAll(".module-section")
             .forEach(sec => sec.style.display = "none");
 
-        const id = e.target.dataset.module + "Section";
-        document.getElementById(id).style.display = "flex";
+        const id = moduleButton.dataset.module + "Section";
+        const section = document.getElementById(id);
+        if (!section) return;
+        section.style.display = "flex";
+        document.querySelectorAll("[data-module]").forEach(button => {
+            button.setAttribute("aria-current", button === moduleButton ? "page" : "false");
+        });
 
-        localStorage.setItem("currentModule", e.target.dataset.module);
+        localStorage.setItem("currentModule", moduleButton.dataset.module);
 
-        document.getElementById("sideMenu").classList.remove("open");
+        closeMenu();
     }
 
     // CALCULATOR
-    if (e.target.dataset.calculator) {
-        showCalculator(e.target.dataset.calculator);
-        document.getElementById("sideMenu").classList.remove("open");
+    const calculatorButton = e.target.closest("[data-calculator]");
+    if (calculatorButton) {
+        showCalculator(calculatorButton.dataset.calculator);
+        closeMenu();
     }
 });
 
@@ -66,12 +91,13 @@ document.addEventListener("click", function(e) {
   const sideMenu = document.getElementById("sideMenu");
   if (!sideMenu) return;
   if (sideMenu.contains(e.target)) return;
-  if (sideMenu.classList.contains("open")) {
-    sideMenu.classList.remove("open");
-    sideMenu.setAttribute("aria-hidden", "true");
-    const globalBtn = document.getElementById("globalMenuBtn");
-    if(globalBtn) globalBtn.setAttribute("aria-expanded", "false");
+    if (sideMenu.classList.contains("open")) {
+        closeMenu();
   }
+});
+
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") closeMenu();
 });
 
 
@@ -79,20 +105,27 @@ document.addEventListener("click", function(e) {
 document.addEventListener("click", function(e) {
     if (e.target.closest("li.has-submenu button[data-module='tools']")) {
         const submenu = e.target.closest("li").querySelector(".submenu");
-        submenu.classList.toggle("open");
+        const button = e.target.closest("button[data-module='tools']");
+        const isOpen = submenu.classList.toggle("open");
+        button.setAttribute("aria-expanded", isOpen);
     }
 });
 
 // Load last module on page load
 document.addEventListener("DOMContentLoaded", function() {
-    // Always start with dashboard
-    const id = "dashboardSection";
+    const allowedModules = ["dashboard", "todo", "notes", "focus"];
+    const savedModule = allowedModules.includes(localStorage.getItem("currentModule"))
+        ? localStorage.getItem("currentModule")
+        : "dashboard";
+    const id = savedModule + "Section";
     const section = document.getElementById(id);
     if (section) {
         // Hide all modules
         document.querySelectorAll(".module-section").forEach(sec => sec.style.display = "none");
-        // Show dashboard
+        // Show the saved module
         section.style.display = "flex";
+        const activeButton = document.querySelector(`[data-module="${savedModule}"]`);
+        if (activeButton) activeButton.setAttribute("aria-current", "page");
     }
 });
 
