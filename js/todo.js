@@ -171,5 +171,17 @@ tabButtons.forEach(btn => {
 });
 
 // View toggle
-document.getElementById("listView").addEventListener("click", () => list.classList.remove("grid-view"));
-document.getElementById("gridView").addEventListener("click", () => list.classList.add("grid-view"));
+const listViewButton = document.getElementById("listView");
+const gridViewButton = document.getElementById("gridView");
+
+listViewButton.addEventListener("click", () => {
+  list.classList.remove("grid-view");
+  listViewButton.setAttribute("aria-pressed", "true");
+  gridViewButton.setAttribute("aria-pressed", "false");
+});
+
+gridViewButton.addEventListener("click", () => {
+  list.classList.add("grid-view");
+  listViewButton.setAttribute("aria-pressed", "false");
+  gridViewButton.setAttribute("aria-pressed", "true");
+});

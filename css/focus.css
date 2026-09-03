@@ -13,11 +13,12 @@ html, body {
   align-items: center;
   justify-content: flex-start; /* Align content to top */
   min-height: 100vh;
-  width: 100%;
+  width: 100vw;
+  max-width: 100vw;
   gap: 1.5rem;
   padding: 1rem;
   box-sizing: border-box;
-  background: url("../assets/images/bgFocus.jpg") no-repeat center center / cover;
+  background: transparent;
   overflow-y: auto;
 }
 

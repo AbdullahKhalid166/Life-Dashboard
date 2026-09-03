@@ -159,8 +159,17 @@ const bgClose = document.getElementById("bgClose");
 const bgReset = document.getElementById("bgReset");
 const dashboard = document.getElementById("dashboardSection");
 
-// Store original background
-const originalBg = document.body.style.backgroundImage || "url('assets/images/bg12.jpg')";
+const defaultBackground = "assets/images/bg8.jpg";
+const backgroundStorageKey = "dashboardBackground";
+const savedBackground = localStorage.getItem(backgroundStorageKey);
+
+function applyBackground(source) {
+    const savedUrl = source.match(/^url\(["']?(.*?)["']?\)$/)?.[1] || source;
+    const absoluteUrl = new URL(savedUrl, document.baseURI).href;
+    document.documentElement.style.setProperty("--app-background", `url("${absoluteUrl}")`);
+}
+
+applyBackground(savedBackground || defaultBackground);
 
 // Open panel
 bgBtn.addEventListener("click", () => {
@@ -174,14 +183,19 @@ bgClose.addEventListener("click", () => {
 
 // Reset background
 bgReset.addEventListener("click", () => {
-    document.body.style.backgroundImage = originalBg;
+    applyBackground(defaultBackground);
+    localStorage.setItem(backgroundStorageKey, defaultBackground);
     bgModal.classList.add("hidden");
 });
 
-// Change background when image clicked
-bgModal.querySelectorAll(".bg-grid img").forEach(img => {
-    img.addEventListener("click", () => {
-        document.body.style.backgroundImage = `url('${img.src}')`;
+// Change background when an option is selected
+bgModal.querySelectorAll(".background-option").forEach(option => {
+    option.addEventListener("click", () => {
+        const image = option.querySelector("img");
+        const source = image.getAttribute("src");
+        applyBackground(source);
+        localStorage.setItem(backgroundStorageKey, source);
+        bgModal.classList.add("hidden");
     });
 });
 
