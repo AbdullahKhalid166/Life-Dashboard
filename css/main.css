@@ -4,8 +4,40 @@
   box-sizing: border-box;
 }
 :root {
+  --font-sans: 'Poppins', sans-serif;
   --menu-left: 16px;
   --menu-top: 18px; /* tweak this to align visually with header */
+  --page-text: #e6eef6;
+  --page-muted: #aeb8c4;
+  --page-accent: #4facfe;
+  --page-surface: rgba(13, 13, 14, 0.58);
+  --page-border: rgba(255, 255, 255, 0.12);
+  --page-radius: 12px;
+  --page-shadow: 0 12px 40px rgba(1, 1, 1, 0.25);
+}
+
+html,
+body {
+  min-width: 320px;
+  min-height: 100%;
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+  color: var(--page-text);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+[contenteditable="true"]:focus-visible {
+  outline: 2px solid var(--page-accent);
+  outline-offset: 2px;
 }
 
 /* fixed global button (always at same viewport spot) */
@@ -22,6 +54,41 @@
   justify-content: center;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+}
+
+.module-section {
+  background-color: var(--page-surface);
+  color: var(--page-text);
+}
+
+.app-page {
+  padding-inline: clamp(0.75rem, 3vw, 2rem);
+}
+
+.app-page input,
+.app-page select,
+.app-page textarea,
+.app-page [contenteditable="true"] {
+  border: 1px solid var(--page-border);
+  border-radius: var(--page-radius);
+  background-color: rgba(0, 0, 0, 0.28);
+  color: var(--page-text);
+}
+
+.app-page input::placeholder,
+.app-page textarea::placeholder {
+  color: var(--page-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
 
 /* hide the per-module header menu buttons so only the global one is visible */

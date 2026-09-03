@@ -71,7 +71,7 @@ html, body {
 
 
 #dashboardSection .clock {
-    font-size: 150px;
+  font-size: clamp(3.5rem, 14vw, 9.375rem);
     font-family: 'Poppins', sans-serif;
     font-weight: 520; 
     letter-spacing: 1px;
@@ -80,7 +80,7 @@ html, body {
 
 
 #dashboardSection .greeting {
-  font-size: 2.5rem;
+  font-size: clamp(1.25rem, 4vw, 2.5rem);
   font-family: 'Poppins', sans-serif;
   font-weight: 130; 
   color: #e6eef6; 
@@ -133,8 +133,8 @@ html, body {
     width: 320px;
     background-color: #161616d8; 
     border-radius: 28px;       
-    backdrop-filter: blur(82px); 
     -webkit-backdrop-filter: blur(82px); /* semi-transparent white for overlay effect */
+    backdrop-filter: blur(82px);
     border-radius: 16px;                   /* smoother, modern rounding */
     padding: 16px 20px;                    /* more spacious padding */
     box-shadow: 0 12px 40px rgba(1, 1, 1, 0.25); /* softer shadow for depth */
@@ -240,11 +240,11 @@ html, body {
     position: fixed;
     right: 18px;
     bottom: 100px;
-    width: 350px;
+    width: min(350px, calc(100vw - 36px));
     background-color: #161616d8;
     border-radius: 16px;
-    backdrop-filter: blur(82px);
     -webkit-backdrop-filter: blur(82px);
+    backdrop-filter: blur(82px);
     padding: 16px 20px;
     box-shadow: 0 12px 40px rgba(1, 1, 1, 0.25);
     font-family: 'Poppins', sans-serif;
@@ -387,14 +387,14 @@ html, body {
 }
 
 #sideMenu {
-  position: absolute;
+  position: fixed;
   left: 16px;
   top: 60px;
-  width: 220px;
+  width: min(220px, calc(100vw - 32px));
   background-color: #161616d8; 
   border-radius: 28px;       
-  backdrop-filter: blur(82px); 
   -webkit-backdrop-filter: blur(82px);  
+  backdrop-filter: blur(82px);
   padding: 20px;
   border-radius: 15px;
   display: none; /* hidden by default */
@@ -457,11 +457,13 @@ html, body {
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.25s ease;
+    -webkit-backdrop-filter: blur(2px);
     backdrop-filter: blur(2px);
 }
 
 .header-right:hover {
     background: rgba(255, 255, 255, 0.075);
+    -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
 }
 
@@ -532,6 +534,16 @@ html, body {
   }
   #greeting {
     text-align: center;
+  }
+
+  #dashboardSection .app-footer {
+    height: auto;
+    min-height: 80px;
+  }
+
+  #dashboardSection .quote {
+    max-width: 55vw;
+    font-size: 0.85rem;
   }
 
 }
